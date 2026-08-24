@@ -85,6 +85,26 @@ public:
      * \since 1.9
      */
     bool bind(quint16 port = 0, QAbstractSocket::BindMode mode = QAbstractSocket::DefaultForPlatform);
+
+    /**
+     * Binds to a specific local address. WS-Discovery uses this to select an
+     * IPv4-only socket so it can join an IPv4 multicast group.
+     */
+    bool bind(const QHostAddress &address, quint16 port,
+              QAbstractSocket::BindMode mode = QAbstractSocket::DefaultForPlatform);
+
+    /**
+     * Returns the local UDP port selected by the operating system when the
+     * socket was bound to port zero.
+     */
+    quint16 localPort() const;
+
+    /**
+     * Joins the socket to an IP multicast group. This is required by protocols
+     * such as WS-Discovery when peers reply to the multicast address instead
+     * of the sender's unicast address.
+     */
+    bool joinMulticastGroup(const QHostAddress &group);
     /**
      * Sets the SOAP version to be used for any subsequent send message.
      * \param version \a SOAP1_1 or \a SOAP1_2

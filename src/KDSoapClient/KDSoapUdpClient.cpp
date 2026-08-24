@@ -50,6 +50,35 @@ bool KDSoapUdpClient::bind(quint16 port, QAbstractSocket::BindMode mode)
     return rc;
 }
 
+bool KDSoapUdpClient::bind(const QHostAddress &address, quint16 port,
+                           QAbstractSocket::BindMode mode)
+{
+    Q_D(KDSoapUdpClient);
+    const bool rc = d->socket->bind(address, port, mode);
+    if (!rc) {
+        qWarning() << "KDSoapUdpClient: failed to bind on" << address << ":" << port
+                   << "mode" << mode << ":" << d->socket->errorString();
+    }
+    return rc;
+}
+
+bool KDSoapUdpClient::joinMulticastGroup(const QHostAddress &group)
+{
+    Q_D(KDSoapUdpClient);
+    const bool rc = d->socket->joinMulticastGroup(group);
+    if (!rc) {
+        qWarning() << "KDSoapUdpClient: failed to join multicast group" << group << ":"
+                   << d->socket->errorString();
+    }
+    return rc;
+}
+
+quint16 KDSoapUdpClient::localPort() const
+{
+    Q_D(const KDSoapUdpClient);
+    return d->socket->localPort();
+}
+
 void KDSoapUdpClient::setSoapVersion(KDSoap::SoapVersion version)
 {
     Q_D(KDSoapUdpClient);
