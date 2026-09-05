@@ -61,6 +61,11 @@ QString KDQName::nameSpace() const
     return mNameSpace;
 }
 
+void KDQName::setPrefix(const QString &prefix)
+{
+    mPrefix = prefix;
+}
+
 bool KDQName::operator==(const KDQName &qname) const
 {
     return (qname.nameSpace() == mNameSpace && qname.localName() == mLocalName);

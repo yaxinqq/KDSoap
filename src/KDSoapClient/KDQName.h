@@ -41,6 +41,9 @@ public:
     void setNameSpace(const QString &nameSpace);
     QString nameSpace() const;
 
+    /** Sets the prefix used when serializing this QName (e.g. "dp0" for "dp0:NetworkVideoTransmitter"). */
+    void setPrefix(const QString &prefix);
+
     bool operator==(const KDQName &) const;
     bool operator!=(const KDQName &) const;
 
